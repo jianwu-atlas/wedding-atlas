@@ -42,8 +42,9 @@ const filmData = [
 const chapterData = [
   { slug: "dazu",         date: "2026-10-09", name: "大足",   name_en: "Dazu",            cover: "assets/img/dazu/01.jpg" },
   { slug: "lanxi",        date: "2026-10-09", name: "兰溪",   name_en: "Lanxi",           cover: "assets/img/lanxi/01.jpg" },
-  { slug: "shanshuidong", date: "2026-10-07", name: "山水洞", name_en: "Shanshui Cave",   cover: "assets/img/shanshuidong/01.jpg" },
-  { slug: "dali",         date: "2026-10-11", name: "大理",   name_en: "Dali",            cover: "assets/img/dali/01.jpg" }
+  { slug: "shanshuidong", date: "2026-10-07", name: "风景区", name_en: "Scenic Area",    cover: "assets/img/shanshuidong/01.jpg" },
+  { slug: "dali",         date: "2026-10-11", name: "大理",   name_en: "Dali",            cover: "assets/img/dali/01.jpg" },
+  { slug: "us",           date: "2024—2026",  name: "我们",   name_en: "Us",              cover: "assets/img/us/16.jpg" }
 ];
 
 /* 配乐 —— 直接引用影片原声（B 站外链播放器，不在仓库托管 mp3） */

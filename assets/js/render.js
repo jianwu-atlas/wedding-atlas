@@ -10,6 +10,7 @@ let curChapter = "all";
 const filmTitle = f => (LANG === "en" ? f.title_en : f.title);
 const photoCap  = p => (LANG === "en" ? p.caption_en : p.caption);
 const chapName  = c => (LANG === "en" ? c.name_en : c.name);
+const videoCap  = v => (LANG === "en" ? v.caption_en : v.caption);
 const thumbOf   = s => s.replace("assets/img/", "assets/img/t/");
 
 function iframeFor(src) {
@@ -111,11 +112,25 @@ function renderGallery(elId, photos) {
   if (!el) return;
   const list = photos.filter(p => curChapter === "all" || p.chapter === curChapter);
   window.__photos = list;
-  el.innerHTML = list.map((p, i) => `
+  const vids = (typeof videoData !== "undefined")
+    ? videoData.filter(v => curChapter === "all" || v.chapter === curChapter) : [];
+  window.__videos = vids;
+  const vidHtml = vids.map((v, i) => `
+    <div class="ph vid" onclick="openVideo(${i})">
+      <img src="${v.poster}" alt="${videoCap(v)}" loading="lazy">
+      <div class="vid-play"><span>▶</span></div>
+      <div class="ph-cap">${videoCap(v)}</div>
+    </div>`).join("");
+  el.innerHTML = vidHtml + list.map((p, i) => `
     <div class="ph" onclick="openPhoto(${i})">
       <img src="${thumbOf(p.src)}" alt="${photoCap(p)}" loading="lazy">
       <div class="ph-cap">${photoCap(p)}</div>
     </div>`).join("");
+}
+function openVideo(i) {
+  const v = (window.__videos || [])[i];
+  if (!v) return;
+  openLB(`<video src="${v.src}" controls autoplay playsinline preload="metadata"></video><div class="lb-cap">${videoCap(v)}</div>`);
 }
 
 function setChapter(ch, btn) {
@@ -143,27 +158,30 @@ function renderDays(elId) {
 
 /* ---------- 周年自动条目（到点自动出现，内容后补） ---------- */
 function anniversaryEntries() {
-  if (typeof TOGETHER_SINCE === "undefined") return [];
-  const base = new Date(TOGETHER_SINCE + "T00:00:00");
-  if (isNaN(base)) return [];
   const out = [];
   const now = new Date();
-  for (let y = base.getFullYear() + 1; y <= now.getFullYear(); y++) {
-    const d = new Date(y, base.getMonth(), base.getDate());
-    if (d > now) break;
-    const n = y - base.getFullYear();
-    out.push({
-      year: String(y),
-      date: `${y}-${String(base.getMonth() + 1).padStart(2, "0")}-${String(base.getDate()).padStart(2, "0")}`,
-      title: I18N[LANG]["anni.title"].replace("{n}", n),
-      title_en: null,
-      place: "", place_en: "",
-      cover: null,
-      text: I18N[LANG]["anni.text"],
-      text_en: null,
-      auto: true
-    });
-  }
+  const add = (anchor, titleKey) => {
+    if (typeof anchor === "undefined") return;
+    const base = new Date(anchor + "T00:00:00");
+    if (isNaN(base)) return;
+    for (let y = base.getFullYear() + 1; y <= now.getFullYear(); y++) {
+      const d = new Date(y, base.getMonth(), base.getDate());
+      if (d > now) break;
+      out.push({
+        year: String(y),
+        date: `${y}-${String(base.getMonth() + 1).padStart(2, "0")}-${String(base.getDate()).padStart(2, "0")}`,
+        title: I18N[LANG][titleKey].replace("{n}", y - base.getFullYear()),
+        title_en: null,
+        place: "", place_en: "",
+        cover: null,
+        text: I18N[LANG]["anni.text"],
+        text_en: null,
+        auto: true
+      });
+    }
+  };
+  add(TOGETHER_SINCE, "anni.together");
+  add(MARRIED, "anni.title");
   return out;
 }
 function mergedMemories() {

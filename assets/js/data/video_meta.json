@@ -1,0 +1,106 @@
+[
+ {
+  "chapter": "dazu",
+  "n": "01",
+  "src": "assets/video/dazu-01.mp4",
+  "poster": "assets/video/p-dazu-01.jpg",
+  "dur": 12,
+  "size_mb": 1.5
+ },
+ {
+  "chapter": "dazu",
+  "n": "02",
+  "src": "assets/video/dazu-02.mp4",
+  "poster": "assets/video/p-dazu-02.jpg",
+  "dur": 24,
+  "size_mb": 1.8
+ },
+ {
+  "chapter": "lanxi",
+  "n": "01",
+  "src": "assets/video/lanxi-01.mp4",
+  "poster": "assets/video/p-lanxi-01.jpg",
+  "dur": 14,
+  "size_mb": 2.4
+ },
+ {
+  "chapter": "lanxi",
+  "n": "02",
+  "src": "assets/video/lanxi-02.mp4",
+  "poster": "assets/video/p-lanxi-02.jpg",
+  "dur": 8,
+  "size_mb": 1.3
+ },
+ {
+  "chapter": "lanxi",
+  "n": "03",
+  "src": "assets/video/lanxi-03.mp4",
+  "poster": "assets/video/p-lanxi-03.jpg",
+  "dur": 13,
+  "size_mb": 1.4
+ },
+ {
+  "chapter": "dali",
+  "n": "01",
+  "src": "assets/video/dali-01.mp4",
+  "poster": "assets/video/p-dali-01.jpg",
+  "dur": 10,
+  "size_mb": 2.7
+ },
+ {
+  "chapter": "dali",
+  "n": "02",
+  "src": "assets/video/dali-02.mp4",
+  "poster": "assets/video/p-dali-02.jpg",
+  "dur": 8,
+  "size_mb": 1.6
+ },
+ {
+  "chapter": "dali",
+  "n": "03",
+  "src": "assets/video/dali-03.mp4",
+  "poster": "assets/video/p-dali-03.jpg",
+  "dur": 22,
+  "size_mb": 7.6
+ },
+ {
+  "chapter": "dali",
+  "n": "04",
+  "src": "assets/video/dali-04.mp4",
+  "poster": "assets/video/p-dali-04.jpg",
+  "dur": 10,
+  "size_mb": 0.5
+ },
+ {
+  "chapter": "dali",
+  "n": "05",
+  "src": "assets/video/dali-05.mp4",
+  "poster": "assets/video/p-dali-05.jpg",
+  "dur": 25,
+  "size_mb": 8.7
+ },
+ {
+  "chapter": "dali",
+  "n": "06",
+  "src": "assets/video/dali-06.mp4",
+  "poster": "assets/video/p-dali-06.jpg",
+  "dur": 15,
+  "size_mb": 1.4
+ },
+ {
+  "chapter": "dali",
+  "n": "07",
+  "src": "assets/video/dali-07.mp4",
+  "poster": "assets/video/p-dali-07.jpg",
+  "dur": 34,
+  "size_mb": 13.6
+ },
+ {
+  "chapter": "dali",
+  "n": "08",
+  "src": "assets/video/dali-08.mp4",
+  "poster": "assets/video/p-dali-08.jpg",
+  "dur": 11,
+  "size_mb": 1.8
+ }
+]
