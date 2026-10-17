@@ -1,3 +1,12 @@
+/* ─── 自托管字体（国内可访问；中文走系统字） ─── */
+@font-face{font-family:'Cormorant Garamond';font-style:normal;font-weight:400;font-display:swap;src:url('../fonts/cormorant-400.woff2') format('woff2')}
+@font-face{font-family:'Cormorant Garamond';font-style:normal;font-weight:500;font-display:swap;src:url('../fonts/cormorant-500.woff2') format('woff2')}
+@font-face{font-family:'Cormorant Garamond';font-style:normal;font-weight:600;font-display:swap;src:url('../fonts/cormorant-600.woff2') format('woff2')}
+@font-face{font-family:'Cormorant Garamond';font-style:italic;font-weight:400;font-display:swap;src:url('../fonts/cormorant-400-italic.woff2') format('woff2')}
+@font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:swap;src:url('../fonts/inter-400.woff2') format('woff2')}
+@font-face{font-family:'Inter';font-style:normal;font-weight:500;font-display:swap;src:url('../fonts/inter-500.woff2') format('woff2')}
+@font-face{font-family:'Inter';font-style:normal;font-weight:600;font-display:swap;src:url('../fonts/inter-600.woff2') format('woff2')}
+
 /* Our Atlas — 暖白 · 墨绿 · 铜金 */
 :root{
   --bg:#faf8f4; --paper:#fffdfa; --ink:#2a2724; --ink-2:#6b655c; --ink-3:#9a9388;
@@ -90,6 +99,8 @@ h1,h2,h3{font-family:var(--serif);font-weight:400;line-height:1.15;letter-spacin
 .lb-src button{border:1px solid rgba(255,255,255,.4);background:transparent;color:#fff;border-radius:999px;padding:6px 16px;font-size:12.5px;cursor:pointer}
 .lb-src button.active{background:#fff;color:var(--green);border-color:#fff}
 .lb-close{position:absolute;top:18px;right:22px;background:none;border:none;color:#fff;font-size:30px;cursor:pointer}
+.lb-alt{font-size:12px;color:#cbb9a8;text-decoration:underline}
+.lb-alt:hover{color:#e9e5dd}
 
 /* story */
 .story-lead{max-width:760px;margin:0 auto;text-align:center}
@@ -120,11 +131,19 @@ h1,h2,h3{font-family:var(--serif);font-weight:400;line-height:1.15;letter-spacin
 /* ─── v2：Hero 一句话 / 日期 ─── */
 .hero-line{font-size:clamp(13px,1.8vw,16px);opacity:.9;margin-top:12px;letter-spacing:.02em}
 .hero-date{font-family:var(--serif);font-size:clamp(15px,2vw,19px);opacity:.78;margin-top:8px;letter-spacing:.14em}
+.hero-days{font-size:12.5px;opacity:.68;margin-top:10px;letter-spacing:.06em}
 
 /* ─── v2：故事时间线占位 ─── */
 .tl-item.tl-ph{opacity:.5}
 .tl-item.tl-ph .tl-name{color:var(--ink-2)}
 .story-note{max-width:760px;margin:0 auto;font-size:12px;color:var(--ink-3);text-align:center}
+
+/* ─── v3：配乐（B 站外链播放器） ─── */
+.music-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.music-card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.music-frame{aspect-ratio:16/9;background:#111}
+.music-frame iframe{width:100%;height:100%;display:block}
+.music-label{padding:10px 14px;font-size:12.5px;color:var(--ink-2)}
 
 /* ─── v2：回忆 ─── */
 .mem-year{font-family:var(--serif);font-size:26px;color:var(--green);margin:26px 0 14px;padding-bottom:8px;border-bottom:1px solid var(--line)}
@@ -137,6 +156,7 @@ h1,h2,h3{font-family:var(--serif);font-weight:400;line-height:1.15;letter-spacin
 .mem-place{font-size:12.5px;color:var(--ink-3);margin-top:4px}
 .mem-text{font-size:14.5px;color:var(--ink-2);margin-top:10px}
 .mem-empty{color:var(--ink-3);font-size:14px;padding:20px 0}
+.mem.mem-auto{opacity:.72;border-style:dashed}
 
 /* ─── v2：蜜月 ─── */
 .honey-intro{max-width:720px;font-size:15px;color:var(--ink-2);margin-bottom:26px}
@@ -148,10 +168,17 @@ h1,h2,h3{font-family:var(--serif);font-weight:400;line-height:1.15;letter-spacin
 .hp-txt{padding:12px 14px 14px}
 .hp-name{font-family:var(--serif);font-size:19px;color:var(--green)}
 .hp-desc{font-size:12.5px;color:var(--ink-2);margin-top:3px}
+.honey-days{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:30px}
+.hday{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px}
+.hday-date{font-size:11.5px;letter-spacing:.14em;color:var(--copper)}
+.hday-title{font-family:var(--serif);font-size:19px;color:var(--green);margin-top:4px}
+.hday-text{font-size:13px;color:var(--ink-2);margin-top:6px;line-height:1.75}
 .honey-grid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}
 
 @media(max-width:860px){
   .mem{grid-template-columns:1fr}
   .mem-body{padding:0 16px 16px}
   .honey-places{grid-template-columns:1fr}
+  .honey-days{grid-template-columns:1fr}
+  .music-grid{grid-template-columns:1fr}
 }
