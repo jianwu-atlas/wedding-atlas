@@ -127,14 +127,86 @@ function openPhoto(i) {
   openLB(`<img src="${p.src}" alt="${photoCap(p)}"><div class="lb-cap">${photoCap(p)}</div>`);
 }
 
+/* ---------- 故事时间线 ---------- */
+function renderStory(elId, data) {
+  const el = document.getElementById(elId);
+  if (!el) return;
+  el.innerHTML = data.map(s => {
+    const d = LANG === "en" ? s.date_en : s.date;
+    const n = LANG === "en" ? s.name_en : s.name;
+    const t = LANG === "en" ? s.text_en : s.text;
+    return `<div class="tl-item${s.placeholder ? " tl-ph" : ""}">
+      <div class="tl-date">${d}</div>
+      <div class="tl-name">${n}</div>
+      <div class="tl-desc">${t}</div>
+    </div>`;
+  }).join("");
+}
+
+/* ---------- 回忆（按年份） ---------- */
+function renderMemories(elId, data) {
+  const el = document.getElementById(elId);
+  if (!el) return;
+  const sorted = [...data].sort((a, b) => String(b.date).localeCompare(String(a.date)));
+  const years = [...new Set(sorted.map(m => m.year))];
+  let html = "";
+  years.forEach(y => {
+    html += `<div class="mem-year">${y}</div>`;
+    sorted.filter(m => m.year === y).forEach(m => {
+      html += `<article class="mem">
+        <div class="mem-cover"><img src="${m.cover}" alt="${LANG === "en" ? m.title_en : m.title}" loading="lazy"></div>
+        <div class="mem-body">
+          <div class="mem-date">${m.date}</div>
+          <h3 class="mem-title">${LANG === "en" ? m.title_en : m.title}</h3>
+          <div class="mem-place">${LANG === "en" ? m.place_en : m.place}</div>
+          <p class="mem-text">${LANG === "en" ? m.text_en : m.text}</p>
+        </div>
+      </article>`;
+    });
+  });
+  if (!data.length) {
+    html = `<p class="mem-empty">${LANG === "en" ? "No memories yet." : "还没有回忆条目。"}</p>`;
+  }
+  el.innerHTML = html;
+}
+
+/* ---------- 蜜月 ---------- */
+function renderHoney(elId, data) {
+  const el = document.getElementById(elId);
+  if (!el) return;
+  const intro = LANG === "en" ? data.intro_en : data.intro;
+  const places = data.places.map(p => `
+    <div class="hp">
+      <img src="${p.img}" alt="${LANG === "en" ? p.name_en : p.name}" loading="lazy">
+      <div class="hp-txt">
+        <div class="hp-name">${LANG === "en" ? p.name_en : p.name}</div>
+        <div class="hp-desc">${LANG === "en" ? p.text_en : p.text}</div>
+      </div>
+    </div>`).join("");
+  const photos = data.photos.map((src, i) =>
+    `<div class="ph" onclick="openHoneyPhoto(${i})"><img src="${src}" alt="" loading="lazy"></div>`).join("");
+  el.innerHTML = `<p class="honey-intro">${intro}</p>
+    <div class="honey-places">${places}</div>
+    <div class="grid honey-grid">${photos}</div>`;
+  window.__honeyPhotos = data.photos;
+}
+function openHoneyPhoto(i) {
+  const src = (window.__honeyPhotos || [])[i];
+  if (src) openLB(`<img src="${src}" alt="">`);
+}
+
 /* ---------- 初始化 ---------- */
 function renderAll() {
-  if (document.getElementById("filmGrid")) renderFilms("filmGrid", filmData);
-  if (document.getElementById("chapGrid")) renderChapters("chapGrid", chapterData, photoData);
-  if (document.getElementById("grid")) {
+  if (document.getElementById("filmGrid") && typeof filmData !== "undefined") renderFilms("filmGrid", filmData);
+  if (document.getElementById("chapGrid") && typeof chapterData !== "undefined") renderChapters("chapGrid", chapterData, photoData);
+  if (document.getElementById("grid") && typeof photoData !== "undefined") {
     renderChips("chips", chapterData, photoData);
     renderGallery("grid", photoData);
   }
+  if (document.getElementById("timeline") && typeof storyData !== "undefined") renderStory("timeline", storyData);
+  if (document.getElementById("memList") && typeof memoryData !== "undefined") renderMemories("memList", memoryData);
+  if (document.getElementById("latestMem") && typeof memoryData !== "undefined") renderMemories("latestMem", memoryData.slice(0, 1));
+  if (document.getElementById("honeyBody") && typeof honeyData !== "undefined") renderHoney("honeyBody", honeyData);
 }
 
 document.addEventListener("DOMContentLoaded", () => {

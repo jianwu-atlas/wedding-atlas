@@ -24,9 +24,11 @@
     </a>
     <div class="nav-links" id="navLinks">
       <a href="index.html" class="active" data-i18n="nav.home">首页</a>
-      <a href="films.html" data-i18n="nav.films">影片</a>
-      <a href="gallery.html" data-i18n="nav.gallery">相册</a>
       <a href="story.html" data-i18n="nav.story">故事</a>
+      <a href="honeymoon.html" data-i18n="nav.honeymoon">蜜月</a>
+      <a href="gallery.html" data-i18n="nav.gallery">相册</a>
+      <a href="films.html" data-i18n="nav.films">影片</a>
+      <a href="memories.html" data-i18n="nav.memories">回忆</a>
     </div>
     <div class="nav-tools">
       <button class="lang-btn" id="langBtn" onclick="toggleLang()">EN</button>
@@ -41,7 +43,8 @@
   <div class="hero-text">
     <div class="hero-kicker" data-i18n="hero.kicker">WEDDING &amp; HONEYMOON</div>
     <div class="hero-name" data-i18n="hero.name">吴坚 &amp; 肖维</div>
-    <div class="hero-sub" data-i18n="hero.sub">从大足到兰溪，再到山水洞，最后到洱海</div>
+    <div class="hero-line" data-i18n="hero.line">从大足到洱海，四站，一本属于我们的地图册</div>
+    <div class="hero-date" data-i18n="hero.date">2026.10.09</div>
   </div>
 </header>
 
@@ -69,6 +72,17 @@
     <div class="chap-grid" id="chapGrid"></div>
   </section>
 
+  <section class="sec">
+    <div class="sec-head">
+      <div>
+        <div class="kicker">MEMORIES</div>
+        <h2 class="sec-title" data-i18n="sec.latest">最新回忆</h2>
+      </div>
+      <a class="sec-meta" href="memories.html" data-i18n="sec.latest.more">全部回忆 →</a>
+    </div>
+    <div id="latestMem"></div>
+  </section>
+
 </main>
 
 <footer class="foot">
@@ -85,6 +99,7 @@
 
 <script src="assets/js/data/films.js"></script>
 <script src="assets/js/data/photos.js"></script>
+<script src="assets/js/data/memories.js"></script>
 <script src="assets/js/main.js"></script>
 <script src="assets/js/render.js"></script>
 </body>
