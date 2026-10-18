@@ -6,7 +6,7 @@
 - 纯静态、无框架；数据驱动（`assets/js/data/*.js`）。
 - 中英双语：右上角「中 / EN」切换，选择存 `localStorage`。
 - 影片：B 站优先播放，可切换 YouTube（一卡多平台）。
-- 相册：184 张照片 + 13 支章节短片，按五章（大足 / 兰溪 / 风景区 / 大理 / 我们）筛选 + 灯箱。
+- 相册：201 张照片 + 13 支章节短片，按五章（大足 / 兰溪 / 风景区 / 大理 / 我们）筛选 + 灯箱。
 
 ## 目录
 
@@ -19,7 +19,7 @@ assets/css/style.css
 assets/js/main.js      双语切换 / 导航
 assets/js/render.js    渲染影片、章节、相册与灯箱
 assets/js/data/films.js   影片 + 章节元数据
-assets/js/data/photos.js  184 张照片清单（脚本生成）
+assets/js/data/photos.js  201 张照片清单（脚本生成）
 assets/img/               压缩后的图片（长边 1600，EXIF 已剥离）
 ```
 
