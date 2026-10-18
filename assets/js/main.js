@@ -9,6 +9,10 @@ const I18N = {
     "hero.line": "从大足到洱海，四站，一本属于我们的地图册",
     "hero.date": "2026.10.09",
     "hero.days": "在一起第 {n} 天",
+    "days.kicker": "TOGETHER · 在 一 起",
+    "days.unit": "天",
+    "days.sub": "自 2025 年 4 月 27 日起 · 每一天都算数",
+    "anni.toast": "在一起 {n} 周年快乐 · 彩带为你而飞",
     "intro.sub": "我 们 的 地 图 册",
     "intro.sound": "进入 · 有声",
     "intro.mute": "静音进入",
@@ -48,6 +52,10 @@ const I18N = {
     "hero.line": "From Dazu to Erhai — four chapters, one atlas of ours.",
     "hero.date": "Oct 9, 2026",
     "hero.days": "Day {n} together",
+    "days.kicker": "TOGETHER",
+    "days.unit": "days",
+    "days.sub": "Since Apr 27, 2025 · every day counts",
+    "anni.toast": "Happy {n} years together · confetti for you",
     "intro.sub": "Our Atlas",
     "intro.sound": "Enter · with sound",
     "intro.mute": "Enter muted",
@@ -112,7 +120,95 @@ document.addEventListener("DOMContentLoaded", () => {
   initIntro();
   initPetals();
   initReveal();
+  initDaysBoard();
+  initTimeline();
+  initTypewriter();
+  initConfetti();
 });
+
+/* ─── v6：「第 N 天」大数字牌 ─── */
+function daysSince(anchor) {
+  const base = new Date(anchor + "T00:00:00");
+  if (isNaN(base)) return null;
+  return Math.max(1, Math.floor((Date.now() - base.getTime()) / 86400000) + 1);
+}
+function initDaysBoard() {
+  const el = document.getElementById("daysBig");
+  if (!el || typeof TOGETHER_SINCE === "undefined") return;
+  const n = daysSince(TOGETHER_SINCE);
+  if (n) el.textContent = n;
+}
+
+/* ─── v6：时间线逐节点点亮 ─── */
+function initTimeline() {
+  const run = () => {
+    const items = document.querySelectorAll(".tl-item");
+    if (!items.length) return;
+    const light = it => it.classList.add("lit");
+    if (!("IntersectionObserver" in window)) { items.forEach(light); return; }
+    const io = new IntersectionObserver(es => {
+      es.forEach(e => { if (e.isIntersecting) { light(e.target); io.unobserve(e.target); } });
+    }, { threshold: .4 });
+    items.forEach(it => io.observe(it));
+  };
+  // .tl-item 由 render.js 的 renderStory 动态生成，且 main.js 先于 render.js 触发
+  // DOMContentLoaded —— 必须延迟到渲染完成后再取节点，否则观察器落空。
+  if (window.requestAnimationFrame) requestAnimationFrame(() => requestAnimationFrame(run));
+  else setTimeout(run, 0);
+}
+
+/* ─── v6：写信页打字机 ─── */
+function initTypewriter() {
+  const p = document.querySelector(".letter p");
+  if (!p) return;
+  const full = p.textContent;
+  if (!full || full.length < 2) return;
+  const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduce || full.length > 420) return;
+  const btn = document.getElementById("langBtn");
+  const cursor = document.createElement("span");
+  cursor.className = "tw-cursor";
+  let i = 0;
+  p.textContent = "";
+  p.appendChild(cursor);
+  window.__twTimer = setInterval(() => {
+    i++;
+    p.textContent = full.slice(0, i);
+    p.appendChild(cursor);
+    if (i >= full.length) { clearInterval(window.__twTimer); setTimeout(() => cursor.remove(), 1800); }
+  }, 55);
+  if (btn) btn.addEventListener("click", () => { clearInterval(window.__twTimer); }, { once: true });
+}
+
+/* ─── v6：周年彩带（纪念日当天自动） ─── */
+function initConfetti() {
+  if (typeof anniversaryEntries !== "function") return;
+  const t = new Date();
+  const pad = n => String(n).padStart(2, "0");
+  const today = `${t.getFullYear()}-${pad(t.getMonth() + 1)}-${pad(t.getDate())}`;
+  const hit = anniversaryEntries().find(a => a.date === today);
+  if (!hit) return;
+  const colors = ["#b07d5a", "#1b3a2d", "#e8a9b8", "#c9a98c", "#f5d3d8", "#97c459"];
+  const box = document.createElement("div");
+  box.className = "confetti";
+  for (let i = 0; i < 70; i++) {
+    const c = document.createElement("i");
+    c.className = "cf";
+    c.style.left = (Math.random() * 100) + "%";
+    c.style.background = colors[i % colors.length];
+    c.style.animationDuration = (2.6 + Math.random() * 2.4) + "s";
+    c.style.animationDelay = (Math.random() * 0.8) + "s";
+    box.appendChild(c);
+  }
+  document.body.appendChild(box);
+  setTimeout(() => box.remove(), 6500);
+  const toast = document.createElement("div");
+  toast.className = "days-toast";
+  const n = (hit.title.match(/(\d+)/) || [null, ""])[1];
+  toast.textContent = (I18N[LANG]["anni.toast"] || "").replace("{n}", n);
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 5200);
+}
 
 /* ─── v5：电影感片头（仅首页） ─── */
 function initIntro() {

@@ -232,3 +232,54 @@ body.intro-lock{overflow:hidden}
 /* ─── v5：灯箱键盘导航提示 ─── */
 .lb-cap{display:flex;align-items:center;gap:10px}
 .lb-count{font-size:11.5px;color:#9a9388;letter-spacing:.06em}
+
+/* ─── v6：时间线逐节点点亮 ─── */
+.js .tl-item{opacity:.32;transition:opacity .7s ease}
+.js .tl-item.lit{opacity:1}
+.js .tl-ph{opacity:.5!important}
+.tl-item::before{transition:background .5s,box-shadow .5s,transform .5s}
+.js .tl-item.lit::before{background:var(--copper);box-shadow:0 0 0 6px rgba(176,125,90,.16);transform:scale(1.3)}
+
+/* ─── v6：首页「第 N 天」大数字牌 ─── */
+.days-board{text-align:center;padding:clamp(30px,5vw,54px) 20px;background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);position:relative;overflow:hidden}
+.days-board::before,.days-board::after{content:"";position:absolute;top:14px;bottom:14px;width:1px;background:linear-gradient(180deg,transparent,var(--copper),transparent)}
+.days-board::before{left:18px}.days-board::after{right:18px}
+.days-num{font-family:var(--serif);font-size:clamp(72px,13vw,148px);line-height:1;color:var(--green);letter-spacing:.02em;margin:10px 0 4px}
+.days-num i{font-style:normal;font-size:.28em;color:var(--copper);margin-left:.12em;letter-spacing:.2em}
+.days-sub{font-size:13px;color:var(--ink-2);margin-top:12px;letter-spacing:.06em}
+
+/* ─── v6：相册瀑布流 ─── */
+.masonry{column-count:4;column-gap:12px}
+.masonry .ph{margin-bottom:12px;break-inside:avoid;aspect-ratio:auto}
+.masonry .ph img{aspect-ratio:auto;height:auto;width:100%}
+@media(max-width:1100px){.masonry{column-count:3}}
+@media(max-width:860px){.masonry{column-count:2}}
+
+/* ─── v6：打字机 ─── */
+.tw-cursor{display:inline-block;width:2px;height:1em;background:var(--copper);margin-left:2px;vertical-align:-2px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+
+/* ─── v6：影院模式（影片页） ─── */
+body.cinema{background:#11150f;color:#e9e5dd}
+.cinema .nav{background:rgba(17,21,15,.94);border-bottom-color:#26302a}
+.cinema .brand-title{color:#e9e5dd}
+.cinema .nav-links{color:#b8b0a4}
+.cinema .nav-links a.active{color:#c9a98c}
+.cinema .sec-title{color:#f0ece3}
+.cinema .kicker{color:#8d857a}
+.cinema .sec-meta{color:#c9a98c}
+.cinema .film-card{background:#1a201b;border-color:#2a352e;box-shadow:0 0 0 1px rgba(201,169,140,.04)}
+.cinema .film-card:hover{box-shadow:0 14px 44px rgba(201,169,140,.16);border-color:#3d4f42}
+.cinema .film-title{color:#f0ece3}
+.cinema .film-meta{color:#8d857a}
+.cinema .music-card{background:#1a201b;border-color:#2a352e}
+.cinema .music-label{color:#b8b0a4}
+.cinema .foot{border-top-color:#26302a;color:#8d857a}
+.cinema .foot .names{color:#e9e5dd}
+
+/* ─── v6：周年彩带 ─── */
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:300;overflow:hidden}
+.cf{position:absolute;top:-4vh;width:9px;height:14px;opacity:.9;animation:cfFall linear forwards}
+@keyframes cfFall{0%{transform:translateY(-6vh) rotate(0deg)}100%{transform:translateY(110vh) rotate(680deg)}}
+.days-toast{position:fixed;top:26px;left:50%;transform:translateX(-50%);z-index:301;background:var(--paper);border:1px solid var(--copper);border-radius:999px;padding:12px 26px;font-size:14px;color:var(--green);box-shadow:0 12px 36px rgba(27,58,45,.2);animation:toastIn .6s ease both;letter-spacing:.04em}
+@keyframes toastIn{from{opacity:0;transform:translate(-50%,-14px)}to{opacity:1;transform:translate(-50%,0)}}
