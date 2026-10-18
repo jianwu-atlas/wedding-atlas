@@ -44,6 +44,7 @@ const chapterData = [
   { slug: "lanxi",        date: "2026-10-09", name: "兰溪",   name_en: "Lanxi",           cover: "assets/img/lanxi/01.jpg" },
   { slug: "shanshuidong", date: "2026-10-07", name: "风景区", name_en: "Scenic Area",    cover: "assets/img/shanshuidong/01.jpg" },
   { slug: "dali",         date: "2026-10-11", name: "大理",   name_en: "Dali",            cover: "assets/img/dali/01.jpg" },
+  { slug: "yibin",        date: "2025-10-06", name: "宜宾",   name_en: "Yibin",            cover: "assets/img/yibin/01.jpg" },
   { slug: "us",           date: "2024—2026",  name: "我们",   name_en: "Us",              cover: "assets/img/us/16.jpg" }
 ];
 
