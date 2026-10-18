@@ -13,4 +13,8 @@ const videoData = [
   { chapter: "dali", src: "assets/video/dali-06.mp4", poster: "assets/video/p-dali-06.jpg", dur: "15s", caption: "大理 · 短片 6", caption_en: "Dali · clip 6" },
   { chapter: "dali", src: "assets/video/dali-07.mp4", poster: "assets/video/p-dali-07.jpg", dur: "34s", caption: "大理 · 短片 7", caption_en: "Dali · clip 7" },
   { chapter: "dali", src: "assets/video/dali-08.mp4", poster: "assets/video/p-dali-08.jpg", dur: "11s", caption: "大理 · 短片 8", caption_en: "Dali · clip 8" },
+  { chapter: "us", src: "assets/video/us-01.mp4", poster: "assets/video/p-us-01.jpg", dur: "22s", caption: "我们 · 短片 1", caption_en: "Us · clip 1" },
+  { chapter: "us", src: "assets/video/us-02.mp4", poster: "assets/video/p-us-02.jpg", dur: "11s", caption: "我们 · 短片 2", caption_en: "Us · clip 2" },
+  { chapter: "us", src: "assets/video/us-03.mp4", poster: "assets/video/p-us-03.jpg", dur: "11s", caption: "我们 · 短片 3", caption_en: "Us · clip 3" },
+  { chapter: "us", src: "assets/video/us-04.mp4", poster: "assets/video/p-us-04.jpg", dur: "2s", caption: "我们 · 短片 4", caption_en: "Us · clip 4" },
 ];

@@ -18,7 +18,7 @@
 | `assets/js/main.js` | 双语（`I18N` 字典 + `data-i18n`）、导航、移动端菜单 |
 | `assets/js/render.js` | 渲染影片/章节/相册、灯箱、平台切换 |
 | `assets/js/data/films.js` | `filmData` + `chapterData` |
-| `assets/js/data/photos.js` | `photoData`（201 条，脚本生成，勿手改结构） |
+| `assets/js/data/photos.js` | `photoData`（214 条，脚本生成，勿手改结构） |
 | `assets/img/{dazu,lanxi,shanshuidong,dali}/NN.jpg` | 压缩图（长边 1600、EXIF 已剥离） |
 
 ## 约定
