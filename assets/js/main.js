@@ -9,6 +9,12 @@ const I18N = {
     "hero.line": "从大足到洱海，四站，一本属于我们的地图册",
     "hero.date": "2026.10.09",
     "hero.days": "在一起第 {n} 天",
+    "intro.sub": "我 们 的 地 图 册",
+    "intro.sound": "进入 · 有声",
+    "intro.mute": "静音进入",
+    "intro.note": "配乐来自我们的婚礼影片原声",
+    "music.title": "配乐 · A Thousand Years",
+    "music.sub": "来自婚礼影片原声 · B 站",
     "anni.title": "结婚 {n} 周年",
     "anni.together": "在一起 {n} 周年",
     "anni.text": "这一页，等我们一起写。",
@@ -42,6 +48,12 @@ const I18N = {
     "hero.line": "From Dazu to Erhai — four chapters, one atlas of ours.",
     "hero.date": "Oct 9, 2026",
     "hero.days": "Day {n} together",
+    "intro.sub": "Our Atlas",
+    "intro.sound": "Enter · with sound",
+    "intro.mute": "Enter muted",
+    "intro.note": "Soundtrack from our wedding films",
+    "music.title": "A Thousand Years",
+    "music.sub": "From our wedding film · Bilibili",
     "anni.title": "{n} years married",
     "anni.together": "{n} years together",
     "anni.text": "This page awaits us.",
@@ -95,4 +107,87 @@ document.addEventListener("DOMContentLoaded", () => {
   const links = document.getElementById("navLinks");
   if (burger && links) burger.addEventListener("click", () => links.classList.toggle("open"));
   applyLang();
+  mountMusic();
+  initMusic(false);
+  initIntro();
+  initPetals();
+  initReveal();
 });
+
+/* ─── v5：电影感片头（仅首页） ─── */
+function initIntro() {
+  const intro = document.getElementById("intro");
+  if (!intro) return;
+  const done = (withSound) => {
+    if (withSound) { sessionStorage.setItem("atlas-music", "1"); initMusic(true); }
+    intro.classList.add("hide");
+    document.body.classList.remove("intro-lock");
+    setTimeout(() => intro.remove(), 1300);
+  };
+  const s = document.getElementById("enterSound");
+  const m = document.getElementById("enterMute");
+  if (s) s.addEventListener("click", () => done(true));
+  if (m) m.addEventListener("click", () => done(false));
+}
+
+/* ─── v5：浮动音乐播放器（B 站外链，不托管 mp3） ─── */
+const MUSIC_SRC = "https://player.bilibili.com/player.html?bvid=BV1CJHd6pEdx&page=1&high_quality=1&danmaku=0&autoplay=1";
+function mountMusic() {
+  if (document.getElementById("music")) return;
+  const div = document.createElement("div");
+  div.className = "music"; div.id = "music";
+  div.innerHTML =
+    '<div class="music-box"><div class="music-cap"><b data-i18n="music.title">配乐 · A Thousand Years</b><span data-i18n="music.sub">来自婚礼影片原声 · B 站</span></div><div class="music-frame"></div></div>' +
+    '<button class="music-btn" id="musicBtn" aria-label="music">&#9834;</button>';
+  document.body.appendChild(div);
+}
+function initMusic(autoplay) {
+  const wrap = document.getElementById("music");
+  if (!wrap) return;
+  const btn = wrap.querySelector(".music-btn");
+  const frame = wrap.querySelector(".music-frame");
+  const load = () => {
+    if (frame.dataset.loaded) return;
+    frame.innerHTML = '<iframe src="' + MUSIC_SRC + '" title="music" allow="autoplay; encrypted-media" frameborder="0" scrolling="no" allowfullscreen></iframe>';
+    frame.dataset.loaded = "1";
+  };
+  if (btn && !btn.dataset.bound) {
+    btn.dataset.bound = "1";
+    btn.addEventListener("click", () => {
+      load();
+      const was = wrap.classList.toggle("open");
+      btn.classList.toggle("playing", was);
+      if (was) sessionStorage.setItem("atlas-music", "1");
+    });
+  }
+  if (autoplay) { load(); wrap.classList.add("open"); if (btn) btn.classList.add("playing"); }
+  else if (sessionStorage.getItem("atlas-music") === "1") { load(); if (btn) btn.classList.add("playing"); }
+}
+
+/* ─── v5：花瓣（仅首页 hero） ─── */
+function initPetals() {
+  const box = document.getElementById("petals");
+  if (!box) return;
+  for (let i = 0; i < 10; i++) {
+    const p = document.createElement("i");
+    p.className = "petal";
+    p.style.left = (Math.random() * 96) + "%";
+    p.style.animationDuration = (9 + Math.random() * 10) + "s";
+    p.style.animationDelay = (-Math.random() * 12) + "s";
+    p.style.transform = "scale(" + (0.6 + Math.random() * 0.8) + ")";
+    box.appendChild(p);
+  }
+}
+
+/* ─── v5：滚动渐显 ─── */
+function initReveal() {
+  document.documentElement.classList.add("js");
+  if (!("IntersectionObserver" in window)) {
+    document.querySelectorAll(".sec").forEach(s => s.classList.add("vis"));
+    return;
+  }
+  const io = new IntersectionObserver(es => {
+    es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("vis"); io.unobserve(e.target); } });
+  }, { threshold: .08 });
+  document.querySelectorAll(".sec").forEach(s => io.observe(s));
+}

@@ -143,7 +143,9 @@ function setChapter(ch, btn) {
 function openPhoto(i) {
   const p = (window.__photos || [])[i];
   if (!p) return;
-  openLB(`<img src="${p.src}" alt="${photoCap(p)}"><div class="lb-cap">${photoCap(p)}</div>`);
+  window.__lbIndex = i;
+  const total = (window.__photos || []).length;
+  openLB(`<img src="${p.src}" alt="${photoCap(p)}"><div class="lb-cap"><span>${photoCap(p)}</span><span class="lb-count">${i + 1} / ${total}</span></div>`);
 }
 
 /* ---------- 纪念日倒计时 ---------- */
@@ -332,7 +334,19 @@ document.addEventListener("DOMContentLoaded", () => {
   renderAll();
   const lb = document.getElementById("lb");
   if (lb) lb.addEventListener("click", e => { if (e.target === lb) closeLB(); });
-  document.addEventListener("keydown", e => { if (e.key === "Escape") closeLB(); });
+  document.addEventListener("keydown", e => {
+    const lbEl = document.getElementById("lb");
+    if (!lbEl || !lbEl.classList.contains("open")) return;
+    if (e.key === "Escape") { closeLB(); return; }
+    if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+      const list = window.__photos || [];
+      if (!list.length) return;
+      let i = (window.__lbIndex || 0) + (e.key === "ArrowRight" ? 1 : -1);
+      if (i < 0) i = list.length - 1;
+      if (i >= list.length) i = 0;
+      openPhoto(i);
+    }
+  });
 });
 
 window.onLangChange = renderAll;
