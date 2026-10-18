@@ -72,9 +72,18 @@ function openFilm(i) {
   }
   html += `<div id="lbFrame">${iframeFor(srcs[0].src)}</div>`;
   html += `<div class="lb-cap">${filmTitle(f)}</div>`;
-  if (srcs[0].url) html += `<a class="lb-alt" id="lbAlt" href="${srcs[0].url}" target="_blank" rel="noopener">${I18N[LANG]["film.alt"] || ""}</a>`;
+  // 健壮回退：每个源一个「观看」按钮，直连原生网页/App——内嵌播放器失败也不影响观看
+  html += `<div class="lb-watch">` + srcs.map(s =>
+    `<a class="watch-btn ${s.source}" href="${s.url}" target="_blank" rel="noopener">${watchLabel(s.source)}</a>`
+  ).join("") + `</div>`;
   openLB(html);
   window.__curSrcs = srcs;
+}
+function watchLabel(src) {
+  const L = SRC_LABEL[src] || src;
+  if (src === "bilibili") return LANG === "en" ? "Watch on Bilibili" : "在 B 站观看";
+  if (src === "youtube") return LANG === "en" ? "Watch on YouTube" : "在 YouTube 观看";
+  return LANG === "en" ? `Watch on ${L}` : `在 ${L} 观看`;
 }
 
 /* ---------- 章节卡（首页） ---------- */

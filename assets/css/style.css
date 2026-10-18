@@ -283,3 +283,10 @@ body.cinema{background:#11150f;color:#e9e5dd}
 @keyframes cfFall{0%{transform:translateY(-6vh) rotate(0deg)}100%{transform:translateY(110vh) rotate(680deg)}}
 .days-toast{position:fixed;top:26px;left:50%;transform:translateX(-50%);z-index:301;background:var(--paper);border:1px solid var(--copper);border-radius:999px;padding:12px 26px;font-size:14px;color:var(--green);box-shadow:0 12px 36px rgba(27,58,45,.2);animation:toastIn .6s ease both;letter-spacing:.04em}
 @keyframes toastIn{from{opacity:0;transform:translate(-50%,-14px)}to{opacity:1;transform:translate(-50%,0)}}
+
+/* ─── v7：影片灯箱「观看」按钮（内嵌失败也能看） ─── */
+.lb-watch{display:flex;gap:12px;justify-content:center;margin-top:16px;flex-wrap:wrap}
+.watch-btn{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border-radius:999px;font-size:14px;font-weight:500;text-decoration:none;letter-spacing:.02em;color:#fff;transition:transform .15s,filter .2s;font-family:var(--sans)}
+.watch-btn:hover{transform:translateY(-1px);filter:brightness(1.08)}
+.watch-btn.bilibili{background:#00a1d6}
+.watch-btn.youtube{background:#ff0033}
